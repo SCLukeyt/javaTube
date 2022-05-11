@@ -1,18 +1,26 @@
-# Getting Started
+# javaTube
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+This is a discord bot that gives the first video in the list of videos from a search given by a command, and some statistics on the video
 
-## Folder Structure
+## Why?
 
-The workspace contains two folders by default, where:
+This was a school project
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+##
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+Libraries Used:
+ - Selenium (added 5/10/22)
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+##
 
-## Dependency Management
+Push logs:
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+> 5/10/22 - indevVersion r0t1
+ - Created Project
+ - Created system to take an input of text from a user and give the title of the first video in the search results on youtube for that text input
+
+##
+
+NOTE:
+
+Depending on decided functionality, bot may become private in order to not get taken down by youtube, and have the same fate as Groovy

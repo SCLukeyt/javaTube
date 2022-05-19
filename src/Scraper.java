@@ -50,11 +50,27 @@ public class Scraper {
 
     public ArrayList<String> getMeta(int i){
         ArrayList<String> meta = new ArrayList<String>();
+
         List<WebElement> elements = driver.findElements(By.cssSelector("yt-formatted-string.ytd-video-renderer"));
+        meta.add(elements.get(i * 4).getText());
+
+        elements = driver.findElements(By.cssSelector("span.ytd-video-meta-block"));
         meta.add(elements.get(i * 2).getText());
-        meta.add(elements.get(i * 2 + 1).getText());
+
         List<WebElement> links = driver.findElements(By.cssSelector("a.yt-simple-endpoint.style-scope.ytd-video-renderer"));
-        meta.add(links.get(i).getAttribute("href"));
+        // for(int j = 0; j < links.size(); j++) {
+        //     System.out.println(links.get(j).getAttribute("href"));
+        // }
+        meta.add(links.get(i*2).getAttribute("href"));
+
+        List<WebElement> channels = driver.findElements(By.cssSelector("a.yt-simple-endpoint.style-scope.yt-formatted-string"));
+        meta.add(channels.get(i*2 + 1).getText());
+        // for(int j = 0; j < links.size(); j++) {
+        //     System.out.println(channels.get(j).getText());
+        // }
+        
+        
+
         return meta;
     }
 

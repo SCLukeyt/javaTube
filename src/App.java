@@ -50,43 +50,52 @@ public class App {
             if (line.equals("exit")) {
                 break;
             }
-            
-            //Auto converts symbols to encode for URL and makes sure it is a valid URL
-            driver.get("https://www.youtube.com/results?search_query=" + line);
-            
-            //This is the title of the first video
-            List<WebElement> titles = driver.findElements(By.cssSelector("yt-formatted-string.ytd-video-renderer"));
-            
-            if (titles.size() == 0) {
-                System.out.println("No videos found");
-                continue;
-            }
 
-            // Get video meta data
-            List<WebElement> meta = driver.findElements(By.cssSelector("span.ytd-video-meta-block"));
+            //lets try this using class attributes instead of hard coding
+            Scraper scraper = new Scraper(driver);
+            System.out.println(scraper.searchVideo(line));
+            System.out.println("\n" + scraper.getVideoTitles());
+            System.out.println("\n" + scraper.getTop5());
 
-            // Get video views
-            // System.out.println(meta.get(0).getText());
-            // // Get time posted
-            // System.out.println(meta.get(1).getText());
-
-            System.out.println("\nTop results");
-
-            System.out.println("1. " + titles.get(0).getText());
-            System.out.println("2. " + titles.get(4).getText());
-            System.out.println("3. " + titles.get(8).getText());
-
-            System.out.println("\nType in the number of the corresponding video");
-            int videoNum = scanner.nextInt() - 1;
-
-            System.out.println(meta.get(videoNum * 2).getText());
-            System.out.println(meta.get(videoNum * 2 + 1).getText());
+            System.out.println("\n" + scraper.getMeta(1));
 
             
-            List<WebElement> links = driver.findElements(By.cssSelector("a.yt-simple-endpoint.style-scope.ytd-video-renderer"));
-            System.out.println(links.get(0).getAttribute("href"));
-            System.out.println(links.get(2).getAttribute("href"));
-            System.out.println(links.get(4).getAttribute("href"));
+            // //Auto converts symbols to encode for URL and makes sure it is a valid URL
+            // driver.get("https://www.youtube.com/results?search_query=" + line);
+            
+            // //This is the title of the first video
+            // List<WebElement> titles = driver.findElements(By.cssSelector("yt-formatted-string.ytd-video-renderer"));
+            
+            // if (titles.size() == 0) {
+            //     System.out.println("No videos found");
+            //     continue;
+            // }
+
+            // // Get video meta data
+            // List<WebElement> meta = driver.findElements(By.cssSelector("span.ytd-video-meta-block"));
+
+            // // Get video views
+            // // System.out.println(meta.get(0).getText());
+            // // // Get time posted
+            // // System.out.println(meta.get(1).getText());
+
+            // System.out.println("\nTop results");
+
+            // System.out.println("1. " + titles.get(0).getText());
+            // System.out.println("2. " + titles.get(4).getText());
+            // System.out.println("3. " + titles.get(8).getText());
+
+            // System.out.println("\nType in the number of the corresponding video");
+            // int videoNum = scanner.nextInt() - 1;
+
+            // System.out.println(meta.get(videoNum * 2).getText());
+            // System.out.println(meta.get(videoNum * 2 + 1).getText());
+
+            
+            // List<WebElement> links = driver.findElements(By.cssSelector("a.yt-simple-endpoint.style-scope.ytd-video-renderer"));
+            // System.out.println(links.get(0).getAttribute("href"));
+            // System.out.println(links.get(2).getAttribute("href"));
+            // System.out.println(links.get(4).getAttribute("href"));
         }
         
         scanner.close();

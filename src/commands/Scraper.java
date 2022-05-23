@@ -1,19 +1,39 @@
-import java.util.Map;
+package commands;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 
-public class Scraper {
+public class Scraper extends ListenerAdapter {
     private WebDriver driver;
 
     public Scraper(WebDriver driver) {
         this.driver = driver;
+    }
+
+    @Override
+    public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
+        if (event.getName().equals("scrape")) {
+            event.deferReply().queue();
+
+            searchVideo(event.getOption("query").getAsString());
+
+            ArrayList<String> titles = getVideoTitles();
+
+            String reply = "";
+            // 1. Title
+            for (int i = 0; i < titles.size(); i++) {
+                reply += (i + 1) + ". " + titles.get(i) + "\n";
+            }
+
+            event.getHook().editOriginal(reply).queue();
+        }
     }
 
     //searches for the query in youtube

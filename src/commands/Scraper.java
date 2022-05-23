@@ -24,15 +24,40 @@ public class Scraper extends ListenerAdapter {
 
             searchVideo(event.getOption("query").getAsString());
 
-            ArrayList<String> titles = getVideoTitles();
-
+            ArrayList<String> titles;
             String reply = "";
-            // 1. Title
-            for (int i = 0; i < titles.size(); i++) {
-                reply += (i + 1) + ". " + titles.get(i) + "\n";
+
+            if (event.getOption("getall") != null && event.getOption("getall").getAsBoolean()) {
+                titles = getVideoTitles();
+                System.out.println(titles);
+            } else {
+                titles = getTop5();
             }
 
-            event.getHook().editOriginal(reply).queue();
+            if (event.getOption("result") != null) {
+                int result = event.getOption("result").getAsInt();
+                if (result > titles.size()) {
+                    event.getHook().editOriginal("Result number too high").queue();
+                    return;
+                }
+                if (event.getOption("showdata") != null && event.getOption("showdata").getAsBoolean()) {
+                    reply = getMeta(result).get(0) + "\n" + getMeta(result).get(1) + "\n" + getMeta(result).get(2) + "\n" + getMeta(result).get(3);
+                    event.getHook().editOriginal(reply).queue();
+                }
+                event.getHook().editOriginal(titles.get(result - 1)).queue();
+            } else {
+                
+                for (int i = 0; i < titles.size(); i++) {
+                    reply += (i + 1) + ". " + titles.get(i) + "\n";
+                }
+                event.getHook().editOriginal(reply).queue();
+            }
+
+            
+
+            
+            // 1. Title
+            
         }
     }
 

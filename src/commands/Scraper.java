@@ -9,7 +9,6 @@ import org.openqa.selenium.WebElement;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-
 public class Scraper extends ListenerAdapter {
     private WebDriver driver;
 
@@ -25,7 +24,6 @@ public class Scraper extends ListenerAdapter {
             searchVideo(event.getOption("query").getAsString());
 
             ArrayList<String> titles;
-            String reply = "";
 
             if (event.getOption("getall") != null && event.getOption("getall").getAsBoolean()) {
                 titles = getVideoTitles();
@@ -33,31 +31,27 @@ public class Scraper extends ListenerAdapter {
             } else {
                 titles = getTop5();
             }
+            String reply = "";
 
             if (event.getOption("result") != null) {
-                int result = event.getOption("result").getAsInt();
-                if (result > titles.size()) {
+                int result = event.getOption("result").getAsInt() - 1;
+                if (result >= titles.size()) {
                     event.getHook().editOriginal("Result number too high").queue();
                     return;
                 }
                 if (event.getOption("showdata") != null && event.getOption("showdata").getAsBoolean()) {
-                    reply = getMeta(result).get(0) + "\n" + getMeta(result).get(1) + "\n" + getMeta(result).get(2) + "\n" + getMeta(result).get(3);
-                    event.getHook().editOriginal(reply).queue();
+                    ArrayList<String> meta = getMeta(result);
+                    reply = meta.get(0) + "\n" + meta.get(3) + "\n" + meta.get(1) + "\n" + meta.get(2);
                 }
-                event.getHook().editOriginal(titles.get(result - 1)).queue();
+                event.getHook().editOriginal(titles.get(result)).queue();
             } else {
-                
                 for (int i = 0; i < titles.size(); i++) {
                     reply += (i + 1) + ". " + titles.get(i) + "\n";
                 }
-                event.getHook().editOriginal(reply).queue();
             }
 
-            
-
-            
-            // 1. Title
-            
+            System.out.println(reply);
+            event.getHook().editOriginal(reply).queue();
         }
     }
 
@@ -109,17 +103,26 @@ public class Scraper extends ListenerAdapter {
         List<WebElement> elements = driver.findElements(By.cssSelector("yt-formatted-string.ytd-video-renderer"));
         meta.add(elements.get(i * 4).getText());
 
-        //Grabs view count of selected video
-        elements = driver.findElements(By.cssSelector("span.ytd-video-meta-block"));
+        //Grabs view count and release date of selected video
+        elements = driver.findElements(By.cssSelector("div.text-wrapper.style-scope.ytd-video-renderer .ytd-video-meta-block"));
         meta.add(elements.get(i * 2).getText());
 
         //Grabs video link of selected video
-        List<WebElement> links = driver.findElements(By.cssSelector("a.yt-simple-endpoint.style-scope.ytd-video-renderer"));
+        List<WebElement> links = driver.findElements(By.cssSelector("div.text-wrapper.style-scope.ytd-video-renderer a.yt-simple-endpoint.style-scope.ytd-video-renderer"));
         meta.add(links.get(i*2).getAttribute("href"));
 
         //Grabs channel name
-        List<WebElement> channels = driver.findElements(By.cssSelector("a.yt-simple-endpoint.style-scope.yt-formatted-string"));
-        meta.add(channels.get(i*2 + 1).getText());
+        List<WebElement> channels = driver.findElements(By.cssSelector("div.text-wrapper.style-scope.ytd-video-renderer .ytd-channel-name div"));
+        // print all items
+        List<String> raw_channels = new ArrayList<String>();
+        for (WebElement channel : channels) {
+            String text = channel.getText();
+            if (text != null && text.length() > 0) {
+                //System.out.println(text);
+                raw_channels.add(text);
+            }
+        }
+        meta.add(raw_channels.get(i));
 
         return meta;
     }

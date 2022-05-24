@@ -19,7 +19,7 @@ public class App {
         JDA api = JDABuilder.createDefault(env.get("JAVACORD_TOKEN")).build();
         
         WebDriver driver = new ChromeDriver();
-        driver.get("https://www.youtube.com");
+        driver.get("https://www.youtube.com/results?search_query=");
 
         api.addEventListener(new Scraper(driver));
         
@@ -33,7 +33,7 @@ public class App {
                 new OptionData(OptionType.INTEGER, "result", "The result number to get"), 
                 new OptionData(OptionType.BOOLEAN, "showdata", "Whether or not to show the data of the result")
             ).queue();
-            
+
         
         //starting the actual bot commands
 

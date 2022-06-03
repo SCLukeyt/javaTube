@@ -33,6 +33,13 @@ public class App {
                 new OptionData(OptionType.INTEGER, "result", "The result number to get"), 
                 new OptionData(OptionType.BOOLEAN, "showdata", "Whether or not to show the data of the result")
             ).queue();
+        api.upsertCommand("scrape", "Scrape YouTube with specified search query")
+            .addOptions(
+                new OptionData(OptionType.STRING, "query", "The query to search on YouTube"), 
+                new OptionData(OptionType.BOOLEAN, "getall", "Whether or not to get all results"), 
+                new OptionData(OptionType.INTEGER, "result", "The result number to get"), 
+                new OptionData(OptionType.BOOLEAN, "showdata", "Whether or not to show the data of the result")
+            ).queue();
 
         
         //starting the actual bot commands

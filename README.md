@@ -15,6 +15,7 @@ Libraries Used:
 ##
 
 Push logs:
+(format: release # take #)
 
 > 5/10/22 - indevVersion r0t1
  - Created Project
@@ -25,7 +26,17 @@ Push logs:
    - Searches for the input tect on youtube
    - gives back search results and details + link for the target video
  - Added preliminary code (currently commented) for discord integration
-   - NOTE: We tried to do the discord stuff first, and it did not go well, please wish us luck in integration
+   - NOTE: We tried to do the discord stuff first, and it did not go well, please wish us luck in integration (EDIT: integration hell was real)
+
+> 5/24/22 - indevVerision r1t2
+  - Full discord integration
+    - uses slash command "/scrape" and subsequent options added to the command to fetch information from youtube
+    - can give title, channel, view count, relative date posting, video link, and all titles from the search
+  - Minor optimization fixes
+    - rather than loading youtube home page and waiting for all the images to load, starting page has been set to an empty search page
+    - minimized calls to methods where possible
+  - Note:
+    - The optimization fixes were in today's push, the full integration was the 23rd but I forgot to update the log, hence why this log is take 2, and not take 1 of release 1
 
 ##
 

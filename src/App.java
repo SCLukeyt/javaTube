@@ -39,40 +39,6 @@ public class App {
                 new OptionData(OptionType.BOOLEAN, "getall", "Whether or not to get all results"), 
                 new OptionData(OptionType.INTEGER, "result", "The result number to get"), 
                 new OptionData(OptionType.BOOLEAN, "showdata", "Whether or not to show the data of the result")
-            ).queue();
-
-        
-        //starting the actual bot commands
-
-        // selenium stuff
-        // WebDriver driver = new ChromeDriver();
-        // driver.get("https://www.youtube.com");
-        // Scanner scanner = new Scanner(System.in);
-
-        // while (true) {
-        //     // get line of text from user
-        //     System.out.println("Search Query:");
-        //     String line = "";
-        //     //close scanner
-
-        //     while (line.equals("")) {
-        //         line = scanner.nextLine();
-        //     }
-            
-        //     if (line.equals("exit")) {
-        //         break;
-        //     }
-
-        //     //lets try this using class attributes instead of hard coding
-        //     Scraper scraper = new Scraper(driver);
-        //     System.out.println(scraper.searchVideo(line));
-        //     System.out.println("\n" + scraper.getVideoTitles());
-        //     System.out.println("\n" + scraper.getTop5());
-
-        //     System.out.println("\n" + scraper.getMeta(1));
-        // }
-        
-        // scanner.close();
-        // driver.quit();   
+            ).queue(); 
     }
 }
